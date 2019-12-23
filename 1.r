@@ -1,0 +1,13 @@
+df=read.csv('1.csv')
+mean_exp=mean(df$experience)
+mean_pub=mean(df$publication)
+m1=sum((df$experience-mean_exp)*(df$publication-mean_pub))/sum((df$experience-mean_exp)**2)
+m0=mean_pub-m1*mean_exp
+df$pred=m1*df$experience+m0
+plot(df$experience,df$publication,col='red')
+lines(df$experience,df$pred,col='blue')
+lin_model=lm(publication~experience,data=df)
+new=data.frame(experience=df$experience)
+pred1=predict(lin_model,new)
+plot(df$experience,df$publication)
+lines(df$experience,pred1)
